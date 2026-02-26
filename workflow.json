@@ -1,0 +1,49 @@
+{
+  "agents": [
+    {
+      "name": "Market Research Agent",
+      "agent_id": "699feda710134bfe58ea6019",
+      "type": "sub-agent",
+      "provider": "perplexity",
+      "model": "sonar-pro",
+      "temperature": 0.1,
+      "top_p": 1,
+      "description": "Fetches real-time Nifty spot price, option chain data, implied volatility (IV), open interest (OI), support/resistance levels, and weekly trend analysis from public financial sources."
+    },
+    {
+      "name": "Strategy Computation Agent",
+      "agent_id": "699feda8510416af3e2a7c70",
+      "type": "sub-agent",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "temperature": 0.1,
+      "top_p": 1,
+      "description": "Computes optimal F&O strategy parameters including strike selection, premium calculations, required margin/capital, max profit, max loss, breakeven points, and probability of profit (POP) based on market data."
+    },
+    {
+      "name": "Strategy Advisor Agent",
+      "agent_id": "699fedc1c9a21920fe8948e3",
+      "type": "sub-agent",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5",
+      "temperature": 0.3,
+      "top_p": 1,
+      "description": "Synthesizes market research and computed strategy data into a clear, actionable recommendation with risk warnings, capital allocation advice, win/loss probability assessment, and trade/no-trade verdict."
+    },
+    {
+      "name": "Nifty Strategy Coordinator",
+      "agent_id": "699feddfc9a21920fe8948e7",
+      "type": "manager",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "temperature": 0.2,
+      "top_p": 1,
+      "description": "Coordinates sub-agents to research market data, compute strategy parameters, and synthesize a final weekly F&O strategy recommendation. Routes user inputs, aggregates all sub-agent outputs into one cohesive strategy report.",
+      "managed_agents": [
+        "699feda710134bfe58ea6019",
+        "699feda8510416af3e2a7c70",
+        "699fedc1c9a21920fe8948e3"
+      ]
+    }
+  ]
+}
